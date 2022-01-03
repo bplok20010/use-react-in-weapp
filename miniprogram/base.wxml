@@ -1,0 +1,21 @@
+<template name="root">
+  <block wx:for="{{node.children}}" wx:key="$$uid">
+    <template is="{{node.$$tpl}}" data="{{node, depth: 0}}" />
+  </block>
+</template>
+
+<template name="tpl_view_0">
+  <view
+    style="{{node.style}}"
+    class="{{node.class || node.className}}"
+  >
+    <block wx:for="{{node.children}}" wx:key="$$uid">
+      <template is="{{node.$$tpl}}" />
+    </block>
+  </view>
+</template>
+
+<template name="tpl_text_0">
+  <text>{{node.text}}</text>
+</template>
+<!-- TODO: -->
