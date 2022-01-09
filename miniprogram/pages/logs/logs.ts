@@ -1,19 +1,13 @@
-// logs.ts
-// const util = require('../../utils/util.js')
-import { formatTime } from '../../utils/util'
+
+import { Logs } from '../../components/Logs'
+import { connect } from '../../ReactRenderer/connect'
 
 Page({
   data: {
-    logs: [],
+    $root: null
   },
   onLoad() {
-    this.setData({
-      logs: (wx.getStorageSync('logs') || []).map((log: string) => {
-        return {
-          date: formatTime(new Date(log)),
-          timeStamp: log
-        }
-      }),
-    })
+    const render = connect(this)
+    render(Logs)
   },
 })

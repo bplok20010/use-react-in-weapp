@@ -17,3 +17,9 @@ const formatNumber = (n: number) => {
   const s = n.toString()
   return s[1] ? s : '0' + s
 }
+
+export const noop = () => void 1
+
+export function filter(array: any[], cb: any) {
+  return array.filter(cb)
+}

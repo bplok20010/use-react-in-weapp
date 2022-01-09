@@ -1,4 +1,3 @@
 <!--index.wxml-->
-<view class="container">
-  how to use react in weapp
-</view>
+<import src="../../base.wxml" />
+<template is="root" data="{{node: $root}}" />
