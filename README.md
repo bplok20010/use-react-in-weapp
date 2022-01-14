@@ -19,7 +19,36 @@
 
 ## 如何使用
 
-### Step1: 入口 JS 文件中引入 React 组件并渲染
+### Step1: 编写 `React` 组件
+
+```tsx
+// components/Index
+import React from 'react'
+
+export function Index() {
+  const [count, update] = React.useState(1)
+
+  return (
+    <div>
+      <button onClick={() => update(count + 1)}>+</button>
+      <div className="center">{count}</div>
+      <button onClick={() => update(count - 1)}>-</button>
+      <button
+        className="mt10"
+        onClick={() => {
+          wx.navigateTo({
+            url: '../logs/logs',
+          })
+        }}
+      >
+        查看启动日志
+      </button>
+    </div>
+  )
+}
+```
+
+### Step2: 入口 JS 文件中引入 React 组件并渲染
 
 ```ts
 import { Index } from '../../components/Index'
@@ -31,7 +60,8 @@ Page({
   },
 
   onLoad() {
-    const render = connect(this) as any
+    // 渲染关联到当前页面
+    const render = connect(this)
     render(Index)
   },
 })
@@ -39,7 +69,7 @@ Page({
 
 > `connect` 后 React 渲染数据会自动设置到 Page 的`data.$root`上。
 
-### Step2: 入口 wxml 文件中引入 base.wxml
+### Step3: 入口 wxml 文件中引入 base.wxml
 
 ```xml
 <!--index.wxml-->
