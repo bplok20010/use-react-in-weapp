@@ -5,6 +5,7 @@
 ## 原理
 
 使用 `react-reconciler` 将 JSX 输出为 JSON 数据，利用小程序`template`的`is`属性，实现模板的自动展开。
+> 使用`react-reconciler`主要是保证各生命周期的一致性
 
 ## 目录介绍
 
@@ -48,7 +49,7 @@ export function Index() {
 }
 ```
 
-### Step2: 入口 JS 文件中引入 React 组件并渲染
+### Step2: 小程序入口 JS 文件中引入 React 组件并渲染
 
 ```ts
 import { Index } from '../../components/Index'
@@ -69,7 +70,7 @@ Page({
 
 > `connect` 后 React 渲染数据会自动设置到 Page 的`data.$root`上。
 
-### Step3: 入口 wxml 文件中引入 base.wxml
+### Step3: 小程序的 wxml 文件中引入 base.wxml
 
 ```xml
 <!--index.wxml-->
