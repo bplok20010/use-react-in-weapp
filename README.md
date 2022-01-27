@@ -49,7 +49,7 @@ export function Index() {
 }
 ```
 
-### Step2: 小程序入口 JS 文件中引入 React 组件并渲染
+### Step2: 小程序各页面入口的 JS 文件中引入 React 组件并渲染
 
 ```ts
 import { Index } from '../../components/Index'
@@ -70,7 +70,7 @@ Page({
 
 > `connect` 后 React 渲染数据会自动设置到 Page 的`data.$root`上。
 
-### Step3: 小程序的 wxml 文件中引入 base.wxml
+### Step3: 小程序各页面入口的 wxml 文件中引入 base.wxml
 
 ```xml
 <!--index.wxml-->
