@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.filter = exports.noop = exports.formatTime = void 0;
-exports.formatTime = function (date) {
+var formatTime = function (date) {
     var year = date.getFullYear();
     var month = date.getMonth() + 1;
     var day = date.getDate();
@@ -12,11 +12,13 @@ exports.formatTime = function (date) {
         ' ' +
         [hour, minute, second].map(formatNumber).join(':'));
 };
+exports.formatTime = formatTime;
 var formatNumber = function (n) {
     var s = n.toString();
     return s[1] ? s : '0' + s;
 };
-exports.noop = function () { return void 1; };
+var noop = function () { return void 1; };
+exports.noop = noop;
 function filter(array, cb) {
     return array.filter(cb);
 }

@@ -7,7 +7,7 @@ Page({
         $root: null
     },
     onLoad: function () {
-        var render = connect_1.connect(this);
+        var render = (0, connect_1.connect)(this);
         render(Logs_1.Logs);
     },
 });

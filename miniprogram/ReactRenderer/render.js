@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.render = exports.getNode = exports.NodeCollect = void 0;
+exports.render = exports.getNode = exports.NodeCollect = exports.getNameTag = void 0;
 var react_reconciler_1 = __importDefault(require("react-reconciler"));
 var util_1 = require("../utils/util");
 var NAME_MAPS = {
@@ -13,6 +13,7 @@ var NAME_MAPS = {
 function getNameTag(name) {
     return NAME_MAPS[name] || name;
 }
+exports.getNameTag = getNameTag;
 var uid = 1;
 exports.NodeCollect = Object.create(null);
 function getNode(uid) {
@@ -46,7 +47,8 @@ function render(reactElement, callback) {
                 depth++;
             }
         }
-        originNode.template = "tpl_" + getNameTag(nodeName) + "_" + depth;
+        originNode.template = "tpl_".concat(getNameTag(nodeName), "_").concat(depth);
+        originNode.originTemplate = "tpl_".concat(getNameTag(nodeName), "_").concat(depth);
     }
     exports.NodeCollect[root.uid] = root;
     var rootHostContext = {};
@@ -99,7 +101,7 @@ function render(reactElement, callback) {
             return false;
         },
         removeChildFromContainer: function (parent, child) {
-            parent.children = util_1.filter(parent.children, function (node) {
+            parent.children = (0, util_1.filter)(parent.children, function (node) {
                 return node.uid !== child.uid;
             });
             updater();
@@ -111,7 +113,7 @@ function render(reactElement, callback) {
             updater();
         },
         removeChild: function (parent, child) {
-            parent.children = util_1.filter(parent.children, function (node) {
+            parent.children = (0, util_1.filter)(parent.children, function (node) {
                 return node.uid !== child.uid;
             });
             updater();
@@ -134,7 +136,7 @@ function render(reactElement, callback) {
         },
         supportsMutation: true,
     };
-    var ReactReconcilerInst = react_reconciler_1.default(hostConfig);
+    var ReactReconcilerInst = (0, react_reconciler_1.default)(hostConfig);
     // Create a root Container if it doesnt exist
     if (!root._rootContainer) {
         root._rootContainer = ReactReconcilerInst.createContainer(root, false);

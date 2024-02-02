@@ -8,7 +8,7 @@ Page({
         $root: null,
     },
     onLoad: function () {
-        var render = connect_1.connect(this);
+        var render = (0, connect_1.connect)(this);
         render(Index_1.Index);
     },
 });

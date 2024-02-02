@@ -12,7 +12,7 @@ function Logs() {
     react_1.default.useEffect(function () {
         var logs = (wx.getStorageSync('logs') || []).map(function (log) {
             return {
-                date: util_1.formatTime(new Date(log)),
+                date: (0, util_1.formatTime)(new Date(log)),
                 timeStamp: log,
             };
         });
