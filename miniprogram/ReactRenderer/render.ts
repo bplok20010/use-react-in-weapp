@@ -6,7 +6,7 @@ const NAME_MAPS = {
   div: "view",
 };
 
-function getNameTag(name: string) {
+export function getNameTag(name: string) {
   return NAME_MAPS[name] || name;
 }
 
@@ -14,7 +14,7 @@ let uid = 1;
 export const NodeCollect = Object.create(null);
 
 export function getNode(uid) {
-  return NodeCollect[uid]
+  return NodeCollect[uid];
 }
 
 export interface Node {
@@ -29,13 +29,11 @@ export interface Node {
 }
 
 export function render(reactElement, callback?) {
-
   const root = createNode("root");
 
   const updater = () => {
-    callback?.(root)
-  }
-
+    callback?.(root);
+  };
 
   function createNode(name: string): Node {
     return {
@@ -51,21 +49,21 @@ export function render(reactElement, callback?) {
     const nodeName = node.nodeName;
     let depth = 0;
     let parentId: string | null | number;
-    const originNode = node
+    const originNode = node;
 
     while ((parentId = node.parentId)) {
       const parentNode = NodeCollect[parentId];
-      node = parentNode
+      node = parentNode;
       if (getNameTag(parentNode.nodeName) === getNameTag(nodeName)) {
         depth++;
       }
     }
 
     originNode.template = `tpl_${getNameTag(nodeName)}_${depth}`;
+    originNode.originTemplate = `tpl_${getNameTag(nodeName)}_${depth}`;
   }
 
-
-  NodeCollect[root.uid] = root
+  NodeCollect[root.uid] = root;
 
   const rootHostContext = {};
   const childHostContext = {};
@@ -77,7 +75,7 @@ export function render(reactElement, callback?) {
     getChildHostContext: () => {
       return childHostContext;
     },
-    shouldSetTextContent() { },
+    shouldSetTextContent() {},
     clearContainer(node) {
       if (node.children.length > 0) {
         node.text = "";
@@ -106,7 +104,7 @@ export function render(reactElement, callback?) {
 
       parent.children.push(child);
 
-      updater()
+      updater();
     },
     appendChild(parent, child) {
       child.parentId = parent.uid;
@@ -114,7 +112,7 @@ export function render(reactElement, callback?) {
 
       parent.children.push(child);
 
-      updater()
+      updater();
     },
     appendChildToContainer(parent, child) {
       child.parentId = parent.uid;
@@ -122,8 +120,7 @@ export function render(reactElement, callback?) {
 
       parent.children.push(child);
 
-      updater()
-
+      updater();
     },
     finalizeInitialChildren(node, _, props) {
       Object.assign(node.props, props);
@@ -134,8 +131,7 @@ export function render(reactElement, callback?) {
         return node.uid !== child.uid;
       });
 
-      updater()
-
+      updater();
     },
     insertBefore(parent, child) {
       child.parentId = parent.uid;
@@ -143,16 +139,14 @@ export function render(reactElement, callback?) {
 
       parent.children.unshift(child);
 
-      updater()
-
+      updater();
     },
     removeChild(parent, child) {
       parent.children = filter(parent.children, (node) => {
         return node.uid !== child.uid;
       });
 
-      updater()
-
+      updater();
     },
     prepareUpdate() {
       return true;
@@ -160,14 +154,12 @@ export function render(reactElement, callback?) {
     commitUpdate(node: Node, _updatePayload, _type, _oldProps, newProps) {
       node.props = newProps;
 
-      updater()
-
+      updater();
     },
     commitTextUpdate(node: Node, _oldText, newText) {
       node.text = newText;
 
-      updater()
-
+      updater();
     },
     resetAfterCommit: noop,
     commitMount: noop,
@@ -180,10 +172,7 @@ export function render(reactElement, callback?) {
 
   // Create a root Container if it doesnt exist
   if (!root._rootContainer) {
-    root._rootContainer = ReactReconcilerInst.createContainer(
-      root,
-      false
-    );
+    root._rootContainer = ReactReconcilerInst.createContainer(root, false);
   }
 
   // update the root Container
@@ -194,4 +183,3 @@ export function render(reactElement, callback?) {
     updater
   );
 }
-
